@@ -1,0 +1,26 @@
+From:
+https://hub.docker.com/r/secretscones/valheim-server
+
+Open ports 2456-2458 TCP/UDP inbound on the server
+Port forwarding on user side(maybe).
+
+Also in due time, this might not get updated. Then just manually install it.
+
+SERVER_DIRECTORY=/root/valheim/server
+WORLDS_DIRECTORY=/root/valheim/worlds
+
+docker run -d --name valheim-server-test \
+  -p 2456:2456 \
+  -p 2456:2456/udp \
+  -p 2457:2457 \
+  -p 2457:2457/udp \
+  -p 2458:2458 \
+  -p 2458:2458/udp \
+  -v $SERVER_DIRECTORY:/server \
+  -v $WORLDS_DIRECTORY:/root/.config/unity3d/IronGate/Valheim/worlds \
+  -e SERVER_NAME="chadbonk" \
+  -e SERVER_PASSWORD="hallohallo" \
+  -e IS_PUBLIC=1 \
+  -e WORLD_NAME="MaximusPrime" \
+  --restart=always \
+  secretscones/valheim-server:1.0.0b
